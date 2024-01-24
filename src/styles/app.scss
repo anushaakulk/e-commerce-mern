@@ -72,7 +72,7 @@
       padding: 10px;
       width: 100px;
       position: absolute;
-      left: calc(100%-100px);
+      left: calc(100% - 100px);
       top:8%;
       > div{
         @include flex(column, flex-start, center, 0.25rem);
