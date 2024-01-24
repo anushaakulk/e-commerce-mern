@@ -12,8 +12,23 @@ import { useState } from "react";
 // import { auth } from "../firebase";
 // import toast from "react-hot-toast";
 
+// interface PropsType {
+//   user: User | null;
+// }
+const user = {_id:"geg", role:"admin"};
 const header = () => {
     const [isOpen, setIsOpen] = useState<boolean>(false);
+
+
+    // const logoutHandler = async () => {
+    //   try {
+    //     await signOut(auth);
+    //     toast.success("Sign Out Successfully");
+    //     setIsOpen(false);
+    //   } catch (error) {
+    //     toast.error("Sign Out Fail");
+    //   }
+    // };
   return (
     <nav className="header">
       <Link onClick={() => setIsOpen(false)} to={"/"}>
@@ -25,6 +40,34 @@ const header = () => {
       <Link onClick={() => setIsOpen(false)} to={"/cart"}>
         <FaShoppingBag />
       </Link>
+
+      {user?._id ? (
+        <>
+          <button onClick={() => setIsOpen((prev) => !prev)}>
+            <FaUser />
+          </button>
+          <dialog open={isOpen}>
+            <div>
+              {user.role === "admin" && (
+                <Link to="/admin/dashboard">
+                  Admin
+                </Link>
+              )}
+
+              <Link onClick={() => setIsOpen(false)} to="/orders">
+                Orders
+              </Link>
+              <button >
+                <FaSignOutAlt />
+              </button>
+            </div>
+          </dialog>
+        </>
+      ) : (
+        <Link to={"/login"}>
+          <FaSignInAlt />
+        </Link>
+      )}
     </nav>
   )
 }
